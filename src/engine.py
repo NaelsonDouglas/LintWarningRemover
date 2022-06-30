@@ -2,7 +2,7 @@ import ast
 from lint_warnings import cui
 
 class Visitor(ast.NodeTransformer):
-    def visit_BoolOp(self, node:ast.AST):
+    def visit_BoolOp(self, node:ast.AST) -> ast.BoolOp:
         fixed = node
         if cui.is_comparing_boolop(node):
             fixed = cui.fix(node)
