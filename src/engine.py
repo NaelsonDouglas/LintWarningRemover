@@ -1,4 +1,6 @@
 import ast
+
+from detection import execute
 from lint_warnings import cui
 
 class Visitor(ast.NodeTransformer):
@@ -10,10 +12,4 @@ class Visitor(ast.NodeTransformer):
         return fixed
 
 if __name__ == '__main__':
-    with open('samples/cui.py') as f:
-        text = f.read()
-
-    tree = ast.parse(text)
-    result = Visitor().visit(tree)
-    result = ast.unparse(result)
-    print(result)
+    r = execute('samples/ddv.py')
