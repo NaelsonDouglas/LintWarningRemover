@@ -12,4 +12,12 @@ class Visitor(ast.NodeTransformer):
         return fixed
 
 if __name__ == '__main__':
-    r = execute('samples/ddv.py')
+    codes = {
+        'ddv' : 'W0102',
+        'cui' : 'R1714'
+    }
+    enabled = ','.join([
+        codes['ddv'],
+        codes['cui']
+    ])
+    r = execute('samples/ddv.py', ['--disable=all', f'--enable={enabled}','j=0'])
