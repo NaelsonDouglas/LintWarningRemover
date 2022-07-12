@@ -13,24 +13,23 @@ class Visitor(ast.NodeTransformer):
         fixed = node
         if cui.is_comparing_boolop(node):
             fixed = cui.fix(node)
-        self.generic_visit(node)
-        return fixed
+        return self._visit(fixed)
 
     def visit_FunctionDef(self, node:ast.FunctionDef) -> ast.FunctionDef:
-        self.generic_visit(node)
-        return ddv.fix(node)
+        fixed = ddv.fix(node)
+        return self._visit(fixed)
 
     def visit_For(self, node:ast.For) -> ast.For:
-        self.generic_visit(node)
-        return cue.fix(node)
+        fixed = cue.fix(node)
+        return self._visit(fixed)
 
     def visit(self, node:ast.AST) -> ast.AST:
         self.generic_visit(node)
-        node = cuw.fix(node)
-        return node
+        fixed = cuw.fix(node)
+        return fixed
 
 def _ast_main():
-    with open('samples/cuw_sample.py') as f:
+    with open('samples/all.py') as f:
         text = f.read()
 
     tree = ast.parse(text)
@@ -40,6 +39,7 @@ def _ast_main():
 
 if __name__ == '__main__':
     tree, r = _ast_main()
+    print(ast.unparse(tree))
 
 # def _pylint_main():
 #     FILE = 'samples/ddv_sample.py'

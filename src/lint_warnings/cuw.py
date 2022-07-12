@@ -11,7 +11,6 @@ def fix(node:ast.AST) -> ast.AST:
         match node.body:
             case (_OPEN_STREAM, _, _CLOSE_STREAM, *_) | (*_, _OPEN_STREAM, _, _CLOSE_STREAM):
                 node.body = _update_body(node.body)
-                print(ast.unparse(node))
                 return node
             case _:
                 return node
