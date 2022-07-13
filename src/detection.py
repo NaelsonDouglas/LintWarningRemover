@@ -1,8 +1,6 @@
 import sys
 import io
 import json
-import pandas as pd
-from pylint import lint
 from pylint.reporters.text import TextReporter
 import parse
 

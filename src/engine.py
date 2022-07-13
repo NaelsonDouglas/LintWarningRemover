@@ -6,6 +6,7 @@ from lint_warnings import cui
 from lint_warnings import ddv
 from lint_warnings import cue
 from lint_warnings import cuw
+from lint_warnings import sc
 
 from helpers import dump
 class Visitor(ast.NodeTransformer):
@@ -23,13 +24,17 @@ class Visitor(ast.NodeTransformer):
         fixed = cue.fix(node)
         return self._visit(fixed)
 
-    def visit(self, node:ast.AST) -> ast.AST:
+    def visit_Compare(self, node:ast.For) -> ast.For:
+        fixed = sc.fix(node)
+        return self._visit(fixed)
+
+    def _visit(self, node:ast.AST) -> ast.AST:
         self.generic_visit(node)
         fixed = cuw.fix(node)
         return fixed
 
 def _ast_main():
-    with open('samples/all.py') as f:
+    with open('samples/sc_sample.py') as f:
         text = f.read()
 
     tree = ast.parse(text)
